@@ -1,0 +1,5 @@
+.SHELLFLAGS := -c
+.SHELLFLAGS += -e
+
+run-dist:
+	./build/install/app/bin/app
