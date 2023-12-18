@@ -6,12 +6,7 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 import java.io.File;
-import java.math.BigInteger;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.security.MessageDigest;
-import java.util.concurrent.Callable;
-
+import java.util.Map;
 import java.util.concurrent.Callable;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true, version = "gendiff 1.0",
@@ -24,13 +19,27 @@ class App implements Callable<Integer> {
     @Option(names = {"-V", "--version"}, versionHelp = true, description = "Print version information and exit.")
     private boolean versionRequested;
     @Parameters(paramLabel= "filepath1", description = "path to first file")
-    private File filepath1;
+    protected File filepath1;
     @Parameters(paramLabel= "filepath2", description = "path to second file")
-    private File filepath2;
+    protected File filepath2;
 
     @Override
     public Integer call() throws Exception {
-        return null;
+        System.out.println("Parsing files...");
+        Map<String, Object> parsedFirstFile = ParseJson.parseFile(filepath1);
+        Map<String, Object> parsedSecondFile = ParseJson.parseFile(filepath2);
+
+        assert parsedFirstFile != null;
+
+        System.out.println("Comparing files...");
+        Map<String, Object> readyParseOutput = JsonComparator.Comparator(parsedFirstFile, parsedSecondFile);
+
+        System.out.println("Result:");
+        for (Map.Entry<String, Object> entry : readyParseOutput.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+
+        return 0;
     }
 
     public static void main(String... args) {
