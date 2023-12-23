@@ -6,7 +6,7 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 import java.io.File;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.Callable;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true, version = "gendiff 1.0",
@@ -25,20 +25,12 @@ class App implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        System.out.println("Parsing files...");
         Map<String, Object> parsedFirstFile = ParseJson.parseFile(filepath1);
         Map<String, Object> parsedSecondFile = ParseJson.parseFile(filepath2);
-
-        assert parsedFirstFile != null;
-
-        System.out.println("Comparing files...");
         Map<String, Object> readyParseOutput = JsonComparator.Comparator(parsedFirstFile, parsedSecondFile);
-
-        System.out.println("Result:");
         for (Map.Entry<String, Object> entry : readyParseOutput.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
-
         return 0;
     }
 
