@@ -13,7 +13,8 @@ public class ParseJson {
     public static Map<String, Object> parseFile(File filePath1) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readValue(filePath1, new TypeReference<TreeMap<String, Object>>() {});
+            return objectMapper.readValue(filePath1, new TypeReference<TreeMap<String, Object>>() { });
+
         } catch (IOException e) {
             e.printStackTrace();
             return null;

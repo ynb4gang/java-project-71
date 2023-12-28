@@ -1,7 +1,10 @@
 package hexlet.code;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import java.io.File;
 import java.util.Map;
 
@@ -35,7 +38,7 @@ class JsonComparatorTest {
         Map<String, Object> map2 = Map.of("key1", "value2", "key3", true);
 
 
-        Map<String, Object> result = JsonComparator.Comparator(map1, map2);
+        Map<String, Object> result = JsonComparator.comparator(map1, map2);
 
 
         assertTrue(result.containsKey("- key2"));
