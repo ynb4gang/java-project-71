@@ -20,7 +20,8 @@ public class JsonComparator {
         return diffParse;
     }
 
-    private static void compareKeys(String key, Map<String, Object> parseFileOne, Map<String, Object> parseFileTwo, Map<String, Object> diffParse) {
+    private static void compareKeys(String key, Map<String, Object> parseFileOne,
+                                    Map<String, Object> parseFileTwo, Map<String, Object> diffParse) {
         if (parseFileOne.containsKey(key) && parseFileTwo.containsKey(key)) {
             Object firstMapValue = parseFileOne.get(key);
             Object secondMapValue = parseFileTwo.get(key);
@@ -35,7 +36,8 @@ public class JsonComparator {
         }
     }
 
-    private static void handleMissingKey(String key, Map<String, Object> parseFileOne, Map<String, Object> parseFileTwo, Map<String, Object> diffParse) {
+    private static void handleMissingKey(String key, Map<String, Object> parseFileOne,
+                                         Map<String, Object> parseFileTwo, Map<String, Object> diffParse) {
         if (parseFileOne.containsKey(key)) {
             diffParse.put("- " + key, parseFileOne.get(key));
         }
