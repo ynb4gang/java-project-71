@@ -1,0 +1,12 @@
+{
+  "name": "Jane Smith",
+  "age": null,
+  "city": "Los Angeles",
+  "email": "jane@example.com",
+  "isStudent": false,
+  "grades": [90, 85, 78],
+  "address": {
+    "street": null,
+    "zipCode": "90001"
+  }
+}

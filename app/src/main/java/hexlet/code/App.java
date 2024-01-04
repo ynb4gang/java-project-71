@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -23,13 +24,22 @@ class App implements Callable<Integer> {
     @Parameters(paramLabel = "filepath2", description = "path to second file")
     protected File filepath2;
 
+
     @Override
     public Integer call() throws Exception {
-        Map<String, Object> parsedFirstFile = ParseJson.parseFile(filepath1);
-        Map<String, Object> parsedSecondFile = ParseJson.parseFile(filepath2);
-        Map<String, Object> readyParseOutput = JsonComparator.comparator(parsedFirstFile, parsedSecondFile);
-        for (Map.Entry<String, Object> entry : readyParseOutput.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
+        Map<String, Object> parsedFirstFile = UniversalParser.parseFile(filepath1);
+        Map<String, Object> parsedSecondFile = UniversalParser.parseFile(filepath2);
+        if (format.equals("stylish")) {
+            Map<String, Object> readyParseOutput = StylishStyleOutput.comparator(parsedFirstFile, parsedSecondFile);
+            for (Map.Entry<String, Object> entry : readyParseOutput.entrySet()) {
+                System.out.println(entry.getKey() + ": " + entry.getValue());
+            }
+        } else if (format.equals("plain")) {
+            String result = PlainStyleOutput.format(parsedFirstFile, parsedSecondFile);
+            System.out.println(result);
+        } else if (format.equals("json")) {
+            JsonNode jsonNode = JsonStyleOutput.format(parsedFirstFile, parsedSecondFile);
+            System.out.println(jsonNode.toPrettyString());
         }
         return 0;
     }

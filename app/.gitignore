@@ -41,5 +41,7 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-/file1.json
-/file2.json
+/src/test/resourses/file1.json
+/src/test/resourses/file2.json
+/src/test/resourses/file1y.yaml
+/src/test/resourses/file2y.yaml
