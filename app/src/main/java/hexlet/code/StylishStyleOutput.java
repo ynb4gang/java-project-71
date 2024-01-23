@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class JsonComparator {
+public class StylishStyleOutput {
 
     public static Map<String, Object> comparator(Map<String, Object> parseFileOne, Map<String, Object> parseFileTwo) {
         Map<String, Object> diffParse = new LinkedHashMap<>();
