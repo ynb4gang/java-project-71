@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import java.io.File;
 import java.util.Map;
 
@@ -40,19 +39,16 @@ class StylishStyleOutputTest {
         Map<String, Object> map1 = Map.of("key1", "value1", "key2", 42);
         Map<String, Object> map2 = Map.of("key1", "value2", "key3", true);
 
+        String result = StylishStyleOutput.comparator(map1, map2);
 
-        Map<String, Object> result = StylishStyleOutput.comparator(map1, map2);
-
-
-        assertTrue(result.containsKey("- key2"));
-        assertEquals(42, result.get("- key2"));
-        assertNull(result.get("+ key2"));
-        assertTrue(result.containsKey("- key1"));
-        assertTrue(result.containsKey("+ key1"));
-        assertEquals("value1", result.get("- key1"));
-        assertEquals("value2", result.get("+ key1"));
-        assertFalse(result.containsKey("- key3"));
-        assertNull(result.get("- key3"));
+        assertTrue(result.contains("- key2"));
+        assertTrue(result.contains("42"));
+        assertFalse(result.contains("+ key2"));
+        assertTrue(result.contains("- key1"));
+        assertTrue(result.contains("+ key1"));
+        assertTrue(result.contains("value1"));
+        assertTrue(result.contains("value2"));
+        assertFalse(result.contains("- key3"));
     }
 }
 
