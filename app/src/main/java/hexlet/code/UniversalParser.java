@@ -11,6 +11,24 @@ import java.util.TreeMap;
 
 
 public class UniversalParser {
+    public static Map<String, Object> parseFile(String filePath1) {
+        try {
+            ObjectMapper objectMapper;
+            String fileName = filePath1.toString().toLowerCase();
+            if (fileName.endsWith(".json")) {
+                objectMapper = new ObjectMapper();
+            } else if (fileName.endsWith(".yaml")) {
+                objectMapper = new ObjectMapper(new YAMLFactory());
+            } else {
+                throw new IOException("Unexpected format file");
+            }
+            return objectMapper.readValue(filePath1, new TypeReference<TreeMap<String, Object>>() { });
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static Map<String, Object> parseFile(File filePath1) {
         try {
             ObjectMapper objectMapper;

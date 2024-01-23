@@ -27,25 +27,27 @@ class App implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        var diff = Differ.generate(filepath1, filepath2);
-        System.out.println(diff);
         Map<String, Object> parsedFirstFile = UniversalParser.parseFile(filepath1);
         Map<String, Object> parsedSecondFile = UniversalParser.parseFile(filepath2);
-        if (format.equals("stylish")) {
-            assert parsedFirstFile != null;
-            assert parsedSecondFile != null;
-            String readyParseOutput = StylishStyleOutput.comparator(parsedFirstFile, parsedSecondFile);
-            System.out.println(readyParseOutput);
-        } else if (format.equals("plain")) {
-            assert parsedFirstFile != null;
-            assert parsedSecondFile != null;
-            String result = PlainStyleOutput.format(parsedFirstFile, parsedSecondFile);
-            System.out.println(result);
-        } else if (format.equals("json")) {
-            assert parsedFirstFile != null;
-            assert parsedSecondFile != null;
-            JsonNode jsonNode = JsonStyleOutput.format(parsedFirstFile, parsedSecondFile);
-            System.out.println(jsonNode.toPrettyString());
+        switch (format) {
+            case "stylish" -> {
+                assert parsedFirstFile != null;
+                assert parsedSecondFile != null;
+                String readyParseOutput = StylishStyleOutput.comparator(parsedFirstFile, parsedSecondFile);
+                System.out.println(readyParseOutput);
+            }
+            case "plain" -> {
+                assert parsedFirstFile != null;
+                assert parsedSecondFile != null;
+                String result = PlainStyleOutput.format(parsedFirstFile, parsedSecondFile);
+                System.out.println(result);
+            }
+            case "json" -> {
+                assert parsedFirstFile != null;
+                assert parsedSecondFile != null;
+                JsonNode jsonNode = JsonStyleOutput.format(parsedFirstFile, parsedSecondFile);
+                System.out.println(jsonNode.toPrettyString());
+            }
         }
         return 0;
     }
