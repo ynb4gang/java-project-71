@@ -3,13 +3,11 @@ package hexlet.code;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class JsonStyleOutput {
-
     public static JsonNode format(Map<String, Object> parseFileOne, Map<String, Object> parseFileTwo) {
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectNode jsonNode = objectMapper.createObjectNode();
@@ -20,10 +18,8 @@ public class JsonStyleOutput {
         for (String key : allKeys) {
             buildJsonResult(key, parseFileOne, parseFileTwo, jsonNode);
         }
-
         return jsonNode;
     }
-
     public static void buildJsonResult(String key, Map<String, Object> parseFileOne,
                                        Map<String, Object> parseFileTwo, ObjectNode jsonNode) {
         ObjectNode nestedNode = jsonNode.putObject(key);

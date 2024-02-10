@@ -1,0 +1,40 @@
+{
+  "address" : {
+    "oldValue" : {
+      "city" : "New York",
+      "zipcode" : "10001"
+    },
+    "newValue" : {
+      "city" : "New York",
+      "zipcode" : "10002"
+    }
+  },
+  "age" : {
+    "oldValue" : 30,
+    "newValue" : 31
+  },
+  "car" : {
+    "value" : null,
+    "status" : "added"
+  },
+  "name" : {
+    "value" : "John",
+    "status" : "unchanged"
+  },
+  "pets" : {
+    "oldValue" : [ {
+      "type" : "dog",
+      "name" : "Buddy"
+    }, {
+      "type" : "cat",
+      "name" : "Whiskers"
+    } ],
+    "newValue" : [ {
+      "type" : "dog",
+      "name" : "Bobby"
+    }, {
+      "type" : "cat",
+      "name" : "Fluffy"
+    } ]
+  }
+}

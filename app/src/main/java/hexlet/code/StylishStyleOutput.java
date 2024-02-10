@@ -8,14 +8,11 @@ public class StylishStyleOutput {
 
     public static String comparator(Map<String, Object> parseFileOne, Map<String, Object> parseFileTwo) {
         StringBuilder result = new StringBuilder();
-
         Set<String> allKeys = new TreeSet<>(parseFileOne.keySet());
         allKeys.addAll(parseFileTwo.keySet());
-
         for (String key : allKeys) {
             compareKeys(key, parseFileOne, parseFileTwo, result);
         }
-
         return result.toString();
     }
 
@@ -24,7 +21,15 @@ public class StylishStyleOutput {
         if (parseFileOne.containsKey(key) && parseFileTwo.containsKey(key)) {
             Object firstMapValue = parseFileOne.get(key);
             Object secondMapValue = parseFileTwo.get(key);
-            if (firstMapValue.equals(secondMapValue)) {
+            if (firstMapValue == null && secondMapValue == null) {
+                result.append("  ").append(key).append(": ").append("null").append("\n");
+            } else if (firstMapValue == null) {
+                result.append("- ").append(key).append(": ").append("null").append("\n");
+                result.append("+ ").append(key).append(": ").append(secondMapValue).append("\n");
+            } else if (secondMapValue == null) {
+                result.append("- ").append(key).append(": ").append(firstMapValue).append("\n");
+                result.append("+ ").append(key).append(": ").append("null").append("\n");
+            } else if (firstMapValue.equals(secondMapValue)) {
                 result.append("  ").append(key).append(": ").append(firstMapValue).append("\n");
             } else {
                 result.append("- ").append(key).append(": ").append(firstMapValue).append("\n");
