@@ -26,7 +26,7 @@ class TestJsonStylish {
 
         File fileFirst = new File("src/test/resources/file1.json");
         File fileSecond = new File("src/test/resources/file2.json");
-        String outputJsonStylish= Differ.generateTest(fileFirst, fileSecond, "stylish");
+        String outputJsonStylish = Differ.generateTest(fileFirst, fileSecond, "stylish");
         assertEquals(expectedOutput, outputJsonStylish);
     }
 }
@@ -48,7 +48,7 @@ class TestYamlStylish {
         File fileFirst = new File("src/test/resources/file1.yaml");
         File fileSecond = new File("src/test/resources/file2.yaml");
 
-        String outputJsonStylish = Differ.generateTest(fileFirst,fileSecond,"stylish");
+        String outputJsonStylish = Differ.generateTest(fileFirst, fileSecond, "stylish");
 
         assertEquals(outputJsonStylish, expectedOutput);
     }
@@ -65,7 +65,8 @@ class TestJsonOutputJson {
         File fileFirst = new File("src/test/resources/file1.json");
         File fileSecond = new File("src/test/resources/file2.json");
 
-        String outputJsonStylish = Differ.generateTest(fileFirst,fileSecond,"json");
+        String outputJsonStylish = Differ.generateTest(fileFirst, fileSecond, "json");
+
         assertEquals(expectedOutput.toPrettyString(), outputJsonStylish);
     }
 }
@@ -81,7 +82,7 @@ class TestJsonOutputYaml {
         File fileFirst = new File("src/test/resources/file1.yaml");
         File fileSecond = new File("src/test/resources/file2.yaml");
 
-        String outputJsonStylish = Differ.generateTest(fileFirst,fileSecond,"json");
+        String outputJsonStylish = Differ.generateTest(fileFirst, fileSecond, "json");
 
         assertEquals(expectedOutput.toPrettyString(), outputJsonStylish);
     }
@@ -105,7 +106,7 @@ class TestJsonPlain {
         File fileFirst = new File("src/test/resources/file1.json");
         File fileSecond = new File("src/test/resources/file2.json");
 
-        String outputJsonStylish = Differ.generateTest(fileFirst,fileSecond,"plain");
+        String outputJsonStylish = Differ.generateTest(fileFirst, fileSecond, "plain");
 
         assertEquals(expectedOutput, outputJsonStylish);
     }
@@ -128,7 +129,7 @@ class TestYamlPlain {
         File fileFirst = new File("src/test/resources/file1.yaml");
         File fileSecond = new File("src/test/resources/file2.yaml");
 
-        String outputJsonStylish = Differ.generateTest(fileFirst,fileSecond,"plain");
+        String outputJsonStylish = Differ.generateTest(fileFirst, fileSecond, "plain");
 
         assertEquals(outputJsonStylish, expectedOutput);
     }
