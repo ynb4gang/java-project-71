@@ -7,9 +7,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class TestJsonStylish {
     @Test
@@ -28,11 +26,7 @@ class TestJsonStylish {
 
         File fileFirst = new File("src/test/resources/file1.json");
         File fileSecond = new File("src/test/resources/file2.json");
-        Map<String, Object> parsedFileFirst = UniversalParser.parseFile(fileFirst);
-        Map<String, Object> parsedFileSecond = UniversalParser.parseFile(fileSecond);
-        assertNotNull(parsedFileFirst);
-        assertNotNull(parsedFileSecond);
-        String outputJsonStylish = StylishStyleOutput.comparator(parsedFileFirst, parsedFileSecond);
+        String outputJsonStylish= Differ.generateTest(fileFirst, fileSecond, "stylish");
         assertEquals(expectedOutput, outputJsonStylish);
     }
 }
@@ -54,12 +48,8 @@ class TestYamlStylish {
         File fileFirst = new File("src/test/resources/file1.yaml");
         File fileSecond = new File("src/test/resources/file2.yaml");
 
-        Map<String, Object> parsedFileFirst = UniversalParser.parseFile(fileFirst);
-        Map<String, Object> parsedFileSecond = UniversalParser.parseFile(fileSecond);
+        String outputJsonStylish = Differ.generateTest(fileFirst,fileSecond,"stylish");
 
-        assertNotNull(parsedFileFirst);
-        assertNotNull(parsedFileSecond);
-        String outputJsonStylish = StylishStyleOutput.comparator(parsedFileFirst, parsedFileSecond);
         assertEquals(outputJsonStylish, expectedOutput);
     }
 }
@@ -69,20 +59,14 @@ class TestJsonOutputJson {
     public void testJsonOutputJson() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        File file = new File("src/test/resources/JsonCorrectOutput.txt");
+        File file = new File("src/test/resources/JsonCorrectOutput.json");
         JsonNode expectedOutput = objectMapper.readTree(file);
 
         File fileFirst = new File("src/test/resources/file1.json");
         File fileSecond = new File("src/test/resources/file2.json");
 
-        Map<String, Object> parsedFileFirst = UniversalParser.parseFile(fileFirst);
-        Map<String, Object> parsedFileSecond = UniversalParser.parseFile(fileSecond);
-
-        assertNotNull(parsedFileFirst);
-        assertNotNull(parsedFileSecond);
-
-        JsonNode outputJsonStylish = JsonStyleOutput.format(parsedFileFirst, parsedFileSecond);
-        assertEquals(expectedOutput.toPrettyString(), outputJsonStylish.toPrettyString());
+        String outputJsonStylish = Differ.generateTest(fileFirst,fileSecond,"json");
+        assertEquals(expectedOutput.toPrettyString(), outputJsonStylish);
     }
 }
 
@@ -91,20 +75,15 @@ class TestJsonOutputYaml {
     public void testJsonOutputYaml() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        File file = new File("src/test/resources/JsonCorrectOutput.txt");
+        File file = new File("src/test/resources/JsonCorrectOutput.json");
         JsonNode expectedOutput = objectMapper.readTree(file);
 
         File fileFirst = new File("src/test/resources/file1.yaml");
         File fileSecond = new File("src/test/resources/file2.yaml");
 
-        Map<String, Object> parsedFileFirst = UniversalParser.parseFile(fileFirst);
-        Map<String, Object> parsedFileSecond = UniversalParser.parseFile(fileSecond);
+        String outputJsonStylish = Differ.generateTest(fileFirst,fileSecond,"json");
 
-        assertNotNull(parsedFileFirst);
-        assertNotNull(parsedFileSecond);
-
-        JsonNode outputJsonStylish = JsonStyleOutput.format(parsedFileFirst, parsedFileSecond);
-        assertEquals(expectedOutput.toPrettyString(), outputJsonStylish.toPrettyString());
+        assertEquals(expectedOutput.toPrettyString(), outputJsonStylish);
     }
 }
 
@@ -125,11 +104,9 @@ class TestJsonPlain {
 
         File fileFirst = new File("src/test/resources/file1.json");
         File fileSecond = new File("src/test/resources/file2.json");
-        Map<String, Object> parsedFileFirst = UniversalParser.parseFile(fileFirst);
-        Map<String, Object> parsedFileSecond = UniversalParser.parseFile(fileSecond);
-        assertNotNull(parsedFileFirst);
-        assertNotNull(parsedFileSecond);
-        String outputJsonStylish = PlainStyleOutput.format(parsedFileFirst, parsedFileSecond);
+
+        String outputJsonStylish = Differ.generateTest(fileFirst,fileSecond,"plain");
+
         assertEquals(expectedOutput, outputJsonStylish);
     }
 }
@@ -151,12 +128,8 @@ class TestYamlPlain {
         File fileFirst = new File("src/test/resources/file1.yaml");
         File fileSecond = new File("src/test/resources/file2.yaml");
 
-        Map<String, Object> parsedFileFirst = UniversalParser.parseFile(fileFirst);
-        Map<String, Object> parsedFileSecond = UniversalParser.parseFile(fileSecond);
+        String outputJsonStylish = Differ.generateTest(fileFirst,fileSecond,"plain");
 
-        assertNotNull(parsedFileFirst);
-        assertNotNull(parsedFileSecond);
-        String outputJsonStylish = PlainStyleOutput.format(parsedFileFirst, parsedFileSecond);
         assertEquals(outputJsonStylish, expectedOutput);
     }
 }
