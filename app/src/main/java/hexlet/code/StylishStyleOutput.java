@@ -10,9 +10,11 @@ public class StylishStyleOutput {
         StringBuilder result = new StringBuilder();
         Set<String> allKeys = new TreeSet<>(parseFileOne.keySet());
         allKeys.addAll(parseFileTwo.keySet());
+        result.append("{\n");
         for (String key : allKeys) {
             compareKeys(key, parseFileOne, parseFileTwo, result);
         }
+        result.append("}\n");
         return result.toString();
     }
 
