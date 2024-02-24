@@ -77,5 +77,4 @@ public class Differ {
 
         return StylishStyleOutput.comparator(parsedFirstFile, parsedSecondFile);
     }
-
 }
