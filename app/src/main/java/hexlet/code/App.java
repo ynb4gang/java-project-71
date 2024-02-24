@@ -1,6 +1,5 @@
 package hexlet.code;
 
-
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -24,7 +23,9 @@ class App implements Callable<Integer> {
 
     @Override
     public Integer call() {
-        Differ.generate(filepath1, filepath2, format);
+        String string1 = filepath1.toString();
+        String string2 = filepath2.toString();
+        Differ.generate(string1, string2, format);
         return 0;
     }
 

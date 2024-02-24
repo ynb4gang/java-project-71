@@ -149,8 +149,8 @@ class DifferTest {
             throw new RuntimeException(e);
         }
         String expectedOutput = expectedOutputBuilder.toString();
-        File file1 = new File("src/test/resources/file1.json");
-        File file2 = new File("src/test/resources/file2.json");
+        String file1 = "src/test/resources/file1.json";
+        String file2 = "src/test/resources/file2.json";
 
         String diff = Differ.generate(file1, file2);
 
@@ -170,8 +170,8 @@ class DifferTest {
             throw new RuntimeException(e);
         }
         String expectedOutput = expectedOutputBuilder.toString();
-        File file1 = new File("src/test/resources/file1.yaml");
-        File file2 = new File("src/test/resources/file2.yaml");
+        String file1 = "src/test/resources/file1.yaml";
+        String file2 = "src/test/resources/file2.yaml";
 
         String diff = Differ.generate(file1, file2);
 
