@@ -30,13 +30,12 @@ public class Differ {
             }
         }
     }
-    public static void generate(String filePath1, String filePath2, String format) {
+    public static String generate(String filePath1, String filePath2, String format) {
         File file1 = new File(filePath1);
         File file2 = new File(filePath2);
 
         if (!file1.exists() || !file2.exists()) {
-            System.out.println("One or both files do not exist.");
-            return;
+            return "One or both files do not exist.";
         }
 
         Map<String, Object> parsedFirstFile = UniversalParser.parseFile(file1);
@@ -47,21 +46,23 @@ public class Differ {
                 assert parsedFirstFile != null;
                 assert parsedSecondFile != null;
                 String readyParseOutput = StylishStyleOutput.comparator(parsedFirstFile, parsedSecondFile);
-                System.out.println(readyParseOutput);
+                return readyParseOutput;
             }
             case "plain" -> {
                 assert parsedFirstFile != null;
                 assert parsedSecondFile != null;
                 String result = PlainStyleOutput.format(parsedFirstFile, parsedSecondFile);
-                System.out.println(result);
+                return result;
             }
             case "json" -> {
                 assert parsedFirstFile != null;
                 assert parsedSecondFile != null;
                 JsonNode jsonNode = JsonStyleOutput.format(parsedFirstFile, parsedSecondFile);
-                System.out.println(jsonNode.toPrettyString());
+                return jsonNode.toPrettyString();
             }
-            default -> System.out.println("Unknown format");
+            default -> {
+                return "Unknown format";
+            }
         }
     }
 
