@@ -65,7 +65,6 @@ public class Differ {
             }
         }
     }
-
     public static String generate(String filePath1, String filePath2) {
         File file1 = new File(filePath1);
         File file2 = new File(filePath2);

@@ -25,9 +25,12 @@ class App implements Callable<Integer> {
     public Integer call() {
         String string1 = filepath1.toString();
         String string2 = filepath2.toString();
-        Differ.generate(string1, string2, format);
+        String diff = Differ.generate(string1, string2, format);
+        System.out.println(diff);
+        System.out.println(diff.length());
         return 0;
     }
+
 
     public static void main(String... args) {
         int exitCode = new CommandLine(new App()).execute(args);

@@ -45,8 +45,8 @@ class TestYamlStylish {
         }
         String expectedOutput = expectedOutputBuilder.toString();
 
-        File fileFirst = new File("src/test/resources/file1.yaml");
-        File fileSecond = new File("src/test/resources/file2.yaml");
+        File fileFirst = new File("src/test/resources/file1.yml");
+        File fileSecond = new File("src/test/resources/file2.yml");
 
         String outputJsonStylish = Differ.generateTest(fileFirst, fileSecond, "stylish");
 
@@ -79,8 +79,8 @@ class TestJsonOutputYaml {
         File file = new File("src/test/resources/JsonCorrectOutput.json");
         JsonNode expectedOutput = objectMapper.readTree(file);
 
-        File fileFirst = new File("src/test/resources/file1.yaml");
-        File fileSecond = new File("src/test/resources/file2.yaml");
+        File fileFirst = new File("src/test/resources/file1.yml");
+        File fileSecond = new File("src/test/resources/file2.yml");
 
         String outputJsonStylish = Differ.generateTest(fileFirst, fileSecond, "json");
 
@@ -126,8 +126,8 @@ class TestYamlPlain {
         }
         String expectedOutput = expectedOutputBuilder.toString();
 
-        File fileFirst = new File("src/test/resources/file1.yaml");
-        File fileSecond = new File("src/test/resources/file2.yaml");
+        File fileFirst = new File("src/test/resources/file1.yml");
+        File fileSecond = new File("src/test/resources/file2.yml");
 
         String outputJsonStylish = Differ.generateTest(fileFirst, fileSecond, "plain");
 
@@ -170,8 +170,8 @@ class DifferTest {
             throw new RuntimeException(e);
         }
         String expectedOutput = expectedOutputBuilder.toString();
-        String file1 = "src/test/resources/file1.yaml";
-        String file2 = "src/test/resources/file2.yaml";
+        String file1 = "src/test/resources/file1.yml";
+        String file2 = "src/test/resources/file2.yml";
 
         String diff = Differ.generate(file1, file2);
 

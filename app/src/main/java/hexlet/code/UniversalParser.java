@@ -17,7 +17,7 @@ public class UniversalParser {
             String fileName = filePath1.toString().toLowerCase();
             if (fileName.endsWith(".json")) {
                 objectMapper = new ObjectMapper();
-            } else if (fileName.endsWith(".yaml")) {
+            } else if (fileName.endsWith(".yml")) {
                 objectMapper = new ObjectMapper(new YAMLFactory());
             } else {
                 throw new IOException("Unexpected format file");
