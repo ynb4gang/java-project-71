@@ -130,7 +130,6 @@ class TestYamlPlain {
         File fileSecond = new File("src/test/resources/file2.yml");
 
         String outputJsonStylish = Differ.generateTest(fileFirst, fileSecond, "plain");
-
         assertEquals(outputJsonStylish, expectedOutput);
     }
 }

@@ -28,7 +28,8 @@ public class PlainStyleOutput {
             addPropertyAdded(key, valueTwo, result);
         } else if (parseFileOne.containsKey(key) && !parseFileTwo.containsKey(key)) {
             addPropertyRemoved(key, result);
-        } else if (parseFileOne.containsKey(key) && parseFileTwo.containsKey(key) && !Objects.equals(valueOne, valueTwo)) {
+        } else if (parseFileOne.containsKey(key)
+                 && parseFileTwo.containsKey(key) && !Objects.equals(valueOne, valueTwo)) {
             addPropertyUpdated(key, valueOne, valueTwo, result);
         }
     }
@@ -39,7 +40,10 @@ public class PlainStyleOutput {
         } else {
             if (value instanceof String) {
                 result.append("Property '").append(key).append("' was added with value: '").append(value).append("'\n");
-            } else result.append("Property '").append(key).append("' was added with value: ").append(value).append("\n");
+            } else {
+                result.append("Property '").append(key)
+                    .append("' was added with value: ").append(value).append("\n");
+            }
         }
     }
 
@@ -51,11 +55,13 @@ public class PlainStyleOutput {
         if ((valueOne instanceof Map || valueOne instanceof List || (valueOne != null && valueOne.getClass().isArray()))
                 && (valueTwo instanceof Map || valueTwo instanceof List || valueTwo.getClass().isArray())) {
             result.append("Property '").append(key).append("' was updated. From [complex value] to [complex value]\n");
-        } else if (valueOne instanceof Map || valueOne instanceof List || (valueOne != null && valueOne.getClass().isArray())) {
+        } else if (valueOne instanceof Map || valueOne instanceof List
+                || (valueOne != null && valueOne.getClass().isArray())) {
             result.append("Property '").append(key).append("' was updated. From ")
                     .append("[complex value]").append(" to ")
                     .append(valueTwo).append("\n");
-        } else if (valueTwo instanceof Map || valueTwo instanceof List || (valueTwo != null && valueTwo.getClass().isArray())) {
+        } else if (valueTwo instanceof Map || valueTwo instanceof List
+                || (valueTwo != null && valueTwo.getClass().isArray())) {
             result.append("Property '").append(key).append("' was updated. From ")
                     .append(valueOne).append(" to ")
                     .append("[complex value]").append("\n");
