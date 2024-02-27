@@ -22,6 +22,7 @@ class TestJsonStylish {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        expectedOutputBuilder.deleteCharAt(expectedOutputBuilder.length() - 1);
         String expectedOutput = expectedOutputBuilder.toString();
 
         File fileFirst = new File("src/test/resources/file1.json");
@@ -43,6 +44,7 @@ class TestYamlStylish {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        expectedOutputBuilder.deleteCharAt(expectedOutputBuilder.length() - 1);
         String expectedOutput = expectedOutputBuilder.toString();
 
         File fileFirst = new File("src/test/resources/file1.yml");
@@ -101,6 +103,7 @@ class TestJsonPlain {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        expectedOutputBuilder.deleteCharAt(expectedOutputBuilder.length() - 1);
         String expectedOutput = expectedOutputBuilder.toString();
 
         File fileFirst = new File("src/test/resources/file1.json");
@@ -124,6 +127,7 @@ class TestYamlPlain {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        expectedOutputBuilder.deleteCharAt(expectedOutputBuilder.length() - 1);
         String expectedOutput = expectedOutputBuilder.toString();
 
         File fileFirst = new File("src/test/resources/file1.yml");
@@ -147,6 +151,7 @@ class DifferTest {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        expectedOutputBuilder.deleteCharAt(expectedOutputBuilder.length() - 1);
         String expectedOutput = expectedOutputBuilder.toString();
         String file1 = "src/test/resources/file1.json";
         String file2 = "src/test/resources/file2.json";
@@ -168,6 +173,7 @@ class DifferTest {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        expectedOutputBuilder.deleteCharAt(expectedOutputBuilder.length() - 1);
         String expectedOutput = expectedOutputBuilder.toString();
         String file1 = "src/test/resources/file1.yml";
         String file2 = "src/test/resources/file2.yml";
