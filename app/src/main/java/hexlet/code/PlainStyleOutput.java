@@ -1,15 +1,10 @@
 package hexlet.code;
 
-
-import java.lang.reflect.Array;
-import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.List;
-import java.util.stream.Collectors;
-
 
 public class PlainStyleOutput {
     public static String format(Map<String, Object> parseFileOne, Map<String, Object> parseFileTwo) {
@@ -20,6 +15,7 @@ public class PlainStyleOutput {
         for (String key : allKeys) {
             buildResult(key, parseFileOne, parseFileTwo, result);
         }
+        result.deleteCharAt(result.length() - 1);
         return result.toString();
     }
 
@@ -38,7 +34,7 @@ public class PlainStyleOutput {
     }
 
     private static void addPropertyAdded(String key, Object value, StringBuilder result) {
-        if (value instanceof Map || value instanceof List || value.getClass().isArray()) {
+        if (value instanceof Map || value instanceof List || (value != null && value.getClass().isArray())) {
             result.append("Property '").append(key).append("' was added with value: [complex value]\n");
         } else {
             if (value instanceof String) {
