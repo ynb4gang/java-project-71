@@ -1,6 +1,8 @@
 package hexlet.code;
 
 
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -26,20 +28,22 @@ public class PlainStyleOutput {
         Object valueOne = parseFileOne.get(key);
         Object valueTwo = parseFileTwo.get(key);
 
-        if (valueOne == null && valueTwo != null) {
+        if (!parseFileOne.containsKey(key) && parseFileTwo.containsKey(key)) {
             addPropertyAdded(key, valueTwo, result);
-        } else if (valueOne != null && valueTwo == null) {
+        } else if (parseFileOne.containsKey(key) && !parseFileTwo.containsKey(key)) {
             addPropertyRemoved(key, result);
-        } else if (valueOne != null && valueTwo != null && !Objects.equals(valueOne, valueTwo)) {
+        } else if (parseFileOne.containsKey(key) && parseFileTwo.containsKey(key) && !Objects.equals(valueOne, valueTwo)) {
             addPropertyUpdated(key, valueOne, valueTwo, result);
         }
     }
 
     private static void addPropertyAdded(String key, Object value, StringBuilder result) {
-        if (value instanceof Map || value instanceof List) {
+        if (value instanceof Map || value instanceof List || value.getClass().isArray()) {
             result.append("Property '").append(key).append("' was added with value: [complex value]\n");
         } else {
-            result.append("Property '").append(key).append("' was added with value: ").append(value).append("\n");
+            if (value instanceof String) {
+                result.append("Property '").append(key).append("' was added with value: '").append(value).append("'\n");
+            } else result.append("Property '").append(key).append("' was added with value: ").append(value).append("\n");
         }
     }
 
@@ -48,32 +52,31 @@ public class PlainStyleOutput {
     }
 
     private static void addPropertyUpdated(String key, Object valueOne, Object valueTwo, StringBuilder result) {
-        if ((valueOne instanceof Map || valueOne instanceof List)
-                && (valueTwo instanceof Map || valueTwo instanceof List)) {
+        if ((valueOne instanceof Map || valueOne instanceof List || (valueOne != null && valueOne.getClass().isArray()))
+                && (valueTwo instanceof Map || valueTwo instanceof List || valueTwo.getClass().isArray())) {
             result.append("Property '").append(key).append("' was updated. From [complex value] to [complex value]\n");
-        } else if (valueOne instanceof Map && valueTwo instanceof Map) {
+        } else if (valueOne instanceof Map || valueOne instanceof List || (valueOne != null && valueOne.getClass().isArray())) {
             result.append("Property '").append(key).append("' was updated. From ")
-                    .append(mapToString((Map<?, ?>) valueOne)).append(" to ")
-                    .append(mapToString((Map<?, ?>) valueTwo)).append("\n");
-        } else if (valueOne instanceof List && valueTwo instanceof List) {
+                    .append("[complex value]").append(" to ")
+                    .append(valueTwo).append("\n");
+        } else if (valueTwo instanceof Map || valueTwo instanceof List || (valueTwo != null && valueTwo.getClass().isArray())) {
             result.append("Property '").append(key).append("' was updated. From ")
-                    .append(listToString((List<?>) valueOne)).append(" to ")
-                    .append(listToString((List<?>) valueTwo)).append("\n");
+                    .append(valueOne).append(" to ")
+                    .append("[complex value]").append("\n");
         } else {
-            result.append("Property '").append(key).append("' was updated. From ")
-                    .append(valueOne).append(" to ").append(valueTwo).append("\n");
+            if (valueOne instanceof String && valueTwo instanceof String) {
+                result.append("Property '").append(key).append("' was updated. From '")
+                        .append(valueOne).append("' to '").append(valueTwo).append("'\n");
+            } else if (valueOne instanceof String && !(valueTwo instanceof  String)) {
+                result.append("Property '").append(key).append("' was updated. From '")
+                        .append(valueOne).append("' to ").append(valueTwo).append("\n");
+            } else if (!(valueOne instanceof String) && valueTwo instanceof  String) {
+                result.append("Property '").append(key).append("' was updated. From ")
+                        .append(valueOne).append(" to '").append(valueTwo).append("'\n");
+            } else {
+                result.append("Property '").append(key).append("' was updated. From ")
+                        .append(valueOne).append(" to ").append(valueTwo).append("\n");
+            }
         }
-    }
-
-    private static String mapToString(Map<?, ?> map) {
-        return map.entrySet().stream()
-                .map(entry -> entry.getKey() + ": " + entry.getValue())
-                .collect(Collectors.joining(", ", "{", "}"));
-    }
-
-    private static String listToString(List<?> list) {
-        return list.stream()
-                .map(Object::toString)
-                .collect(Collectors.joining(", ", "[", "]"));
     }
 }
