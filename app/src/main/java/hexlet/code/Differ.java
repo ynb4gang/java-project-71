@@ -45,8 +45,12 @@ public class Differ {
             case "stylish" -> {
                 assert parsedFirstFile != null;
                 assert parsedSecondFile != null;
-                String readyParseOutput = StylishStyleOutput.comparator(parsedFirstFile, parsedSecondFile);
-                return readyParseOutput;
+                StringBuilder result = new StringBuilder(StylishStyleOutput.comparator(parsedFirstFile, parsedSecondFile));
+                if (!result.isEmpty() && result.charAt(result.length() - 1) == '\n') {
+                    result.deleteCharAt(result.length() - 1); // Remove trailing newline character
+                }
+                return result.toString();
+
             }
             case "plain" -> {
                 assert parsedFirstFile != null;
