@@ -14,7 +14,7 @@ public class StylishStyleOutput {
         for (String key : allKeys) {
             compareKeys(key, parseFileOne, parseFileTwo, result);
         }
-        result.append("}");
+        result.append("}\n");
         return result.toString();
     }
 
