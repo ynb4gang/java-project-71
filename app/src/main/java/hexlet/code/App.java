@@ -17,9 +17,9 @@ class App implements Callable<Integer> {
     @Option(names = {"-V", "--version"}, versionHelp = true, description = "Print version information and exit.")
     private boolean versionRequested;
     @Parameters(paramLabel = "filepath1", description = "path to first file")
-    protected File filepath1;
+    private File filepath1;
     @Parameters(paramLabel = "filepath2", description = "path to second file")
-    protected File filepath2;
+    private File filepath2;
 
     @Override
     public Integer call() {
