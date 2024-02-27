@@ -15,7 +15,6 @@ public class StylishStyleOutput {
             compareKeys(key, parseFileOne, parseFileTwo, result);
         }
         result.append("}\n");
-        result.deleteCharAt(result.length() - 1);
         return result.toString();
     }
 
