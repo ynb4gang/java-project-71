@@ -47,7 +47,7 @@ public class Differ {
                 assert parsedSecondFile != null;
                 StringBuilder result = new StringBuilder(StylishStyleOutput.comparator(parsedFirstFile, parsedSecondFile));
                 if (!result.isEmpty() && result.charAt(result.length() - 1) == '\n') {
-                    result.deleteCharAt(result.length() - 1); // Remove trailing newline character
+                    result.deleteCharAt(result.length() - 1);
                 }
                 return result.toString();
 
@@ -55,8 +55,7 @@ public class Differ {
             case "plain" -> {
                 assert parsedFirstFile != null;
                 assert parsedSecondFile != null;
-                String result = PlainStyleOutput.format(parsedFirstFile, parsedSecondFile);
-                return result;
+                return PlainStyleOutput.format(parsedFirstFile, parsedSecondFile);
             }
             case "json" -> {
                 assert parsedFirstFile != null;

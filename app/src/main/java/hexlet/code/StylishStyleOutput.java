@@ -24,18 +24,18 @@ public class StylishStyleOutput {
             Object firstMapValue = parseFileOne.get(key);
             Object secondMapValue = parseFileTwo.get(key);
             if (firstMapValue == null && secondMapValue == null) {
-                result.append("  ").append(key).append(": ").append("null").append("\n");
+                result.append("    ").append(key).append(": ").append("null").append("\n");
             } else if (firstMapValue == null) {
-                result.append("- ").append(key).append(": ").append("null").append("\n");
-                result.append("+ ").append(key).append(": ").append(secondMapValue).append("\n");
+                result.append("  - ").append(key).append(": ").append("null").append("\n");
+                result.append("  + ").append(key).append(": ").append(secondMapValue).append("\n");
             } else if (secondMapValue == null) {
-                result.append("- ").append(key).append(": ").append(firstMapValue).append("\n");
-                result.append("+ ").append(key).append(": ").append("null").append("\n");
+                result.append("  - ").append(key).append(": ").append(firstMapValue).append("\n");
+                result.append("  + ").append(key).append(": ").append("null").append("\n");
             } else if (firstMapValue.equals(secondMapValue)) {
-                result.append("  ").append(key).append(": ").append(firstMapValue).append("\n");
+                result.append("    ").append(key).append(": ").append(firstMapValue).append("\n");
             } else {
-                result.append("- ").append(key).append(": ").append(firstMapValue).append("\n");
-                result.append("+ ").append(key).append(": ").append(secondMapValue).append("\n");
+                result.append("  - ").append(key).append(": ").append(firstMapValue).append("\n");
+                result.append("  + ").append(key).append(": ").append(secondMapValue).append("\n");
             }
         } else {
             handleMissingKey(key, parseFileOne, parseFileTwo, result);
@@ -45,10 +45,10 @@ public class StylishStyleOutput {
     private static void handleMissingKey(String key, Map<String, Object> parseFileOne,
                                          Map<String, Object> parseFileTwo, StringBuilder result) {
         if (parseFileOne.containsKey(key)) {
-            result.append("- ").append(key).append(": ").append(parseFileOne.get(key)).append("\n");
+            result.append("  - ").append(key).append(": ").append(parseFileOne.get(key)).append("\n");
         }
         if (parseFileTwo.containsKey(key)) {
-            result.append("+ ").append(key).append(": ").append(parseFileTwo.get(key)).append("\n");
+            result.append("  + ").append(key).append(": ").append(parseFileTwo.get(key)).append("\n");
         }
     }
 }
