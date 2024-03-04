@@ -8,25 +8,32 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+class FileUtils {
+    public static StringBuilder readFileToStringBuilder(String filePath) {
+        StringBuilder stringBuilder = new StringBuilder();
+        File file = new File(filePath);
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading file: " + filePath, e);
+        }
+        return stringBuilder;
+    }
+}
 class TestJsonStylish {
     @Test
     public void testJsonStylish() {
-        StringBuilder expectedOutputBuilder = new StringBuilder();
-        File expectedFile = new File("src/test/resources/StylishCorrectOutput.txt");
-        try (BufferedReader reader = new BufferedReader(new FileReader(expectedFile))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                expectedOutputBuilder.append(line).append("\n");
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        StringBuilder expectedOutputBuilder = FileUtils
+                .readFileToStringBuilder("src/test/fixtures/StylishCorrectOutput.txt");
+
         expectedOutputBuilder.deleteCharAt(expectedOutputBuilder.length() - 1);
         String expectedOutput = expectedOutputBuilder.toString();
 
-        File fileFirst = new File("src/test/resources/file1.json");
-        File fileSecond = new File("src/test/resources/file2.json");
+        File fileFirst = new File("src/test/fixtures/file1.json");
+        File fileSecond = new File("src/test/fixtures/file2.json");
         String outputJsonStylish = Differ.generateTest(fileFirst, fileSecond, "stylish");
         assertEquals(expectedOutput, outputJsonStylish);
     }
@@ -34,21 +41,14 @@ class TestJsonStylish {
 class TestYamlStylish {
     @Test
     public void testYamlStylish() {
-        StringBuilder expectedOutputBuilder = new StringBuilder();
-        File expectedFile = new File("src/test/resources/StylishCorrectOutput.txt");
-        try (BufferedReader reader = new BufferedReader(new FileReader(expectedFile))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                expectedOutputBuilder.append(line).append("\n");
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        StringBuilder expectedOutputBuilder = FileUtils
+                .readFileToStringBuilder("src/test/fixtures/StylishCorrectOutput.txt");
+
         expectedOutputBuilder.deleteCharAt(expectedOutputBuilder.length() - 1);
         String expectedOutput = expectedOutputBuilder.toString();
 
-        File fileFirst = new File("src/test/resources/file1.yml");
-        File fileSecond = new File("src/test/resources/file2.yml");
+        File fileFirst = new File("src/test/fixtures/file1.yml");
+        File fileSecond = new File("src/test/fixtures/file2.yml");
 
         String outputJsonStylish = Differ.generateTest(fileFirst, fileSecond, "stylish");
 
@@ -61,11 +61,11 @@ class TestJsonOutputJson {
     public void testJsonOutputJson() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        File file = new File("src/test/resources/JsonCorrectOutput.json");
+        File file = new File("src/test/fixtures/JsonCorrectOutput.json");
         JsonNode expectedOutput = objectMapper.readTree(file);
 
-        File fileFirst = new File("src/test/resources/file1.json");
-        File fileSecond = new File("src/test/resources/file2.json");
+        File fileFirst = new File("src/test/fixtures/file1.json");
+        File fileSecond = new File("src/test/fixtures/file2.json");
 
         String outputJsonStylish = Differ.generateTest(fileFirst, fileSecond, "json");
 
@@ -78,11 +78,11 @@ class TestJsonOutputYaml {
     public void testJsonOutputYaml() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
 
-        File file = new File("src/test/resources/JsonCorrectOutput.json");
+        File file = new File("src/test/fixtures/JsonCorrectOutput.json");
         JsonNode expectedOutput = objectMapper.readTree(file);
 
-        File fileFirst = new File("src/test/resources/file1.yml");
-        File fileSecond = new File("src/test/resources/file2.yml");
+        File fileFirst = new File("src/test/fixtures/file1.yml");
+        File fileSecond = new File("src/test/fixtures/file2.yml");
 
         String outputJsonStylish = Differ.generateTest(fileFirst, fileSecond, "json");
 
@@ -93,21 +93,14 @@ class TestJsonOutputYaml {
 class TestJsonPlain {
     @Test
     public void testJsonPlain() {
-        StringBuilder expectedOutputBuilder = new StringBuilder();
-        File expectedFile = new File("src/test/resources/PlainCorrectOutput.txt");
-        try (BufferedReader reader = new BufferedReader(new FileReader(expectedFile))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                expectedOutputBuilder.append(line).append("\n");
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        StringBuilder expectedOutputBuilder = FileUtils
+                .readFileToStringBuilder("src/test/fixtures/PlainCorrectOutput.txt");
+
         expectedOutputBuilder.deleteCharAt(expectedOutputBuilder.length() - 1);
         String expectedOutput = expectedOutputBuilder.toString();
 
-        File fileFirst = new File("src/test/resources/file1.json");
-        File fileSecond = new File("src/test/resources/file2.json");
+        File fileFirst = new File("src/test/fixtures/file1.json");
+        File fileSecond = new File("src/test/fixtures/file2.json");
 
         String outputJsonStylish = Differ.generateTest(fileFirst, fileSecond, "plain");
 
@@ -117,66 +110,46 @@ class TestJsonPlain {
 class TestYamlPlain {
     @Test
     public void testYamlPlain() {
-        StringBuilder expectedOutputBuilder = new StringBuilder();
-        File expectedFile = new File("src/test/resources/PlainCorrectOutput.txt");
-        try (BufferedReader reader = new BufferedReader(new FileReader(expectedFile))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                expectedOutputBuilder.append(line).append("\n");
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        StringBuilder expectedOutputBuilder = FileUtils
+                .readFileToStringBuilder("src/test/fixtures/PlainCorrectOutput.txt");
+
         expectedOutputBuilder.deleteCharAt(expectedOutputBuilder.length() - 1);
         String expectedOutput = expectedOutputBuilder.toString();
 
-        File fileFirst = new File("src/test/resources/file1.yml");
-        File fileSecond = new File("src/test/resources/file2.yml");
+        File fileFirst = new File("src/test/fixtures/file1.yml");
+        File fileSecond = new File("src/test/fixtures/file2.yml");
 
         String outputJsonStylish = Differ.generateTest(fileFirst, fileSecond, "plain");
         assertEquals(outputJsonStylish, expectedOutput);
     }
 }
 
-class DifferTest {
+class TestDifferJson {
     @Test
     public void testDifferGenerateWithDefaultFormatterJson() {
-        StringBuilder expectedOutputBuilder = new StringBuilder();
-        File expectedFile = new File("src/test/resources/StylishCorrectOutput.txt");
-        try (BufferedReader reader = new BufferedReader(new FileReader(expectedFile))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                expectedOutputBuilder.append(line).append("\n");
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        StringBuilder expectedOutputBuilder = FileUtils
+                .readFileToStringBuilder("src/test/fixtures/StylishCorrectOutput.txt");
+
         expectedOutputBuilder.deleteCharAt(expectedOutputBuilder.length() - 1);
         String expectedOutput = expectedOutputBuilder.toString();
-        String file1 = "src/test/resources/file1.json";
-        String file2 = "src/test/resources/file2.json";
+        String file1 = "src/test/fixtures/file1.json";
+        String file2 = "src/test/fixtures/file2.json";
 
         String diff = Differ.generate(file1, file2);
 
         assertEquals(expectedOutput, diff);
     }
-
+}
+class TestDifferYaml {
     @Test
     public void testDifferGenerateWithAnotherFormatterYaml() {
-        StringBuilder expectedOutputBuilder = new StringBuilder();
-        File expectedFile = new File("src/test/resources/StylishCorrectOutput.txt");
-        try (BufferedReader reader = new BufferedReader(new FileReader(expectedFile))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                expectedOutputBuilder.append(line).append("\n");
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        StringBuilder expectedOutputBuilder = FileUtils
+                .readFileToStringBuilder("src/test/fixtures/StylishCorrectOutput.txt");
+
         expectedOutputBuilder.deleteCharAt(expectedOutputBuilder.length() - 1);
         String expectedOutput = expectedOutputBuilder.toString();
-        String file1 = "src/test/resources/file1.yml";
-        String file2 = "src/test/resources/file2.yml";
+        String file1 = "src/test/fixtures/file1.yml";
+        String file2 = "src/test/fixtures/file2.yml";
 
         String diff = Differ.generate(file1, file2);
 
