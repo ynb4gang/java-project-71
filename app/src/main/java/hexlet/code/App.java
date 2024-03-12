@@ -12,10 +12,6 @@ import java.util.concurrent.Callable;
 class App implements Callable<Integer> {
     @Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
     private String format = "stylish";
-    @Option(names = {"-h", "--help"}, usageHelp = true, description = "Show this help message and exit.")
-    private boolean helpRequested;
-    @Option(names = {"-V", "--version"}, versionHelp = true, description = "Print version information and exit.")
-    private boolean versionRequested;
     @Parameters(paramLabel = "filepath1", description = "path to first file")
     private File filepath1;
     @Parameters(paramLabel = "filepath2", description = "path to second file")
