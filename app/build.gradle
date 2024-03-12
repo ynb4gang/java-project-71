@@ -26,12 +26,9 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
 
-tasks.test {
+test {
     useJUnitPlatform()
-    testLogging {
-        exceptionFormat = TestExceptionFormat.FULL
-        events = mutableSetOf(TestLogEvent.FAILED, TestLogEvent.PASSED, TestLogEvent.SKIPPED)
-        showStandardStreams = true
-    }
 }
-tasks.jacocoTestReport { reports { xml.required.set(true) } }
+jacocoTestReport {
+    dependsOn test
+}
