@@ -2,19 +2,22 @@ package hexlet.code;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 
 public class Differ {
     public static String generate(String filePath1, String filePath2, String format) {
-        File file1 = new File(filePath1);
-        File file2 = new File(filePath2);
+        Path path1 = Paths.get(filePath1).toAbsolutePath();
+        Path path2 = Paths.get(filePath2).toAbsolutePath();
 
-        if (!file1.exists() || !file2.exists()) {
+        if (!Files.exists(path1) || !Files.exists(path2)) {
             return "One or both files do not exist.";
         }
 
-        Map<String, Object> parsedFirstFile = UniversalParser.parseFile(file1);
-        Map<String, Object> parsedSecondFile = UniversalParser.parseFile(file2);
+        Map<String, Object> parsedFirstFile = UniversalParser.parseFile(path1.toFile());
+        Map<String, Object> parsedSecondFile = UniversalParser.parseFile(path2.toFile());
 
         switch (format) {
             case "stylish" -> {

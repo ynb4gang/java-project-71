@@ -22,8 +22,6 @@ class FileUtils {
         }
         return stringBuilder;
     }
-}
-class TestJsonStylish {
     @Test
     public void testJsonStylish() {
         StringBuilder expectedOutputBuilder = FileUtils
@@ -37,8 +35,6 @@ class TestJsonStylish {
         String outputJsonStylish = Differ.generate(fileFirst, fileSecond, "stylish");
         assertEquals(expectedOutput, outputJsonStylish);
     }
-}
-class TestYamlStylish {
     @Test
     public void testYamlStylish() {
         StringBuilder expectedOutputBuilder = FileUtils
@@ -54,9 +50,6 @@ class TestYamlStylish {
 
         assertEquals(outputJsonStylish, expectedOutput);
     }
-}
-
-class TestJsonOutputJson {
     @Test
     public void testJsonOutputJson() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -71,9 +64,6 @@ class TestJsonOutputJson {
 
         assertEquals(expectedOutput.toPrettyString(), outputJsonStylish);
     }
-}
-
-class TestJsonOutputYaml {
     @Test
     public void testJsonOutputYaml() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -88,9 +78,6 @@ class TestJsonOutputYaml {
 
         assertEquals(expectedOutput.toPrettyString(), outputJsonStylish);
     }
-}
-
-class TestJsonPlain {
     @Test
     public void testJsonPlain() {
         StringBuilder expectedOutputBuilder = FileUtils
@@ -106,8 +93,6 @@ class TestJsonPlain {
 
         assertEquals(expectedOutput, outputJsonStylish);
     }
-}
-class TestYamlPlain {
     @Test
     public void testYamlPlain() {
         StringBuilder expectedOutputBuilder = FileUtils
@@ -122,9 +107,6 @@ class TestYamlPlain {
         String outputJsonStylish = Differ.generate(fileFirst, fileSecond, "plain");
         assertEquals(outputJsonStylish, expectedOutput);
     }
-}
-
-class TestDifferJson {
     @Test
     public void testDifferGenerateWithDefaultFormatterJson() {
         StringBuilder expectedOutputBuilder = FileUtils
@@ -139,8 +121,6 @@ class TestDifferJson {
 
         assertEquals(expectedOutput, diff);
     }
-}
-class TestDifferYaml {
     @Test
     public void testDifferGenerateWithAnotherFormatterYaml() {
         StringBuilder expectedOutputBuilder = FileUtils
@@ -156,3 +136,4 @@ class TestDifferYaml {
         assertEquals(expectedOutput, diff);
     }
 }
+

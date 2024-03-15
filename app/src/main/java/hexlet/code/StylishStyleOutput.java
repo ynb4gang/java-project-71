@@ -3,6 +3,7 @@ package hexlet.code;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import static hexlet.code.BuildResult.compareKeys;
 
 public class StylishStyleOutput {
 
@@ -16,39 +17,5 @@ public class StylishStyleOutput {
         }
         result.append("}");
         return result.toString();
-    }
-
-    private static void compareKeys(String key, Map<String, Object> parseFileOne,
-                                    Map<String, Object> parseFileTwo, StringBuilder result) {
-        if (parseFileOne.containsKey(key) && parseFileTwo.containsKey(key)) {
-            Object firstMapValue = parseFileOne.get(key);
-            Object secondMapValue = parseFileTwo.get(key);
-            if (firstMapValue == null && secondMapValue == null) {
-                result.append("    ").append(key).append(": ").append("null").append("\n");
-            } else if (firstMapValue == null) {
-                result.append("  - ").append(key).append(": ").append("null").append("\n");
-                result.append("  + ").append(key).append(": ").append(secondMapValue).append("\n");
-            } else if (secondMapValue == null) {
-                result.append("  - ").append(key).append(": ").append(firstMapValue).append("\n");
-                result.append("  + ").append(key).append(": ").append("null").append("\n");
-            } else if (firstMapValue.equals(secondMapValue)) {
-                result.append("    ").append(key).append(": ").append(firstMapValue).append("\n");
-            } else {
-                result.append("  - ").append(key).append(": ").append(firstMapValue).append("\n");
-                result.append("  + ").append(key).append(": ").append(secondMapValue).append("\n");
-            }
-        } else {
-            handleMissingKey(key, parseFileOne, parseFileTwo, result);
-        }
-    }
-
-    private static void handleMissingKey(String key, Map<String, Object> parseFileOne,
-                                         Map<String, Object> parseFileTwo, StringBuilder result) {
-        if (parseFileOne.containsKey(key)) {
-            result.append("  - ").append(key).append(": ").append(parseFileOne.get(key)).append("\n");
-        }
-        if (parseFileTwo.containsKey(key)) {
-            result.append("  + ").append(key).append(": ").append(parseFileTwo.get(key)).append("\n");
-        }
     }
 }
