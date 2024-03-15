@@ -22,8 +22,9 @@ jobs:
         run: cd app && ./gradlew test
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v5.0.0
-        with:
+        env:
           CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
-          JACOCO_SOURCE_PATH: "${{github.workspace}}/app/src/main/java"
+          JACOCO_SOURCE_PATH: src/main/java/app
+        with:
           coverageCommand: make report
-          coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
+          coverageLocations: ${{github.workspace}}/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
