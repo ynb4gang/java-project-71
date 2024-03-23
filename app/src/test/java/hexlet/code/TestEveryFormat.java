@@ -106,7 +106,7 @@ class FileUtils {
         String file1 = "src/test/resources/fixtures/file1.json";
         String file2 = "src/test/resources/fixtures/file2.json";
 
-        String diff = Differ.generate(file1, file2);
+        String diff = Differ.generate(file1, file2, "stylish");
 
         expectedOutput = expectedOutput.replaceAll("\\r\\n", "\n");
         diff = diff.replaceAll("\\r\\n", "\n");
@@ -122,7 +122,7 @@ class FileUtils {
         String file1 = "src/test/resources/fixtures/file1.yml";
         String file2 = "src/test/resources/fixtures/file2.yml";
 
-        String diff = Differ.generate(file1, file2);
+        String diff = Differ.generate(file1, file2, "stylish");
 
 
         expectedOutput = expectedOutput.replaceAll("\\r\\n", "\n");

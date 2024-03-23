@@ -5,14 +5,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import java.util.Map;
 
 public class DifferenceFormatter {
-    public static String format(String format,
-                                Map<String, Object> parsedFirstFile, Map<String, Object> parsedSecondFile) {
+    public static String format(Map<String, Object> parsedFirstFile,
+                                Map<String, Object> parsedSecondFile, String format) {
         switch (format) {
             case "stylish" -> {
                 assert parsedFirstFile != null;
                 assert parsedSecondFile != null;
-                StringBuilder result = new StringBuilder(StylishStyleOutput
-                        .comparator(parsedFirstFile, parsedSecondFile));
+                StringBuilder result = new StringBuilder(BuildResult
+                        .formatStylish(parsedFirstFile, parsedSecondFile));
                 if (!result.isEmpty() && result.charAt(result.length() - 1) == '\n') {
                     result.deleteCharAt(result.length() - 1);
                 }
@@ -21,12 +21,12 @@ public class DifferenceFormatter {
             case "plain" -> {
                 assert parsedFirstFile != null;
                 assert parsedSecondFile != null;
-                return PlainStyleOutput.format(parsedFirstFile, parsedSecondFile);
+                return BuildResult.formatPlain(parsedFirstFile, parsedSecondFile);
             }
             case "json" -> {
                 assert parsedFirstFile != null;
                 assert parsedSecondFile != null;
-                JsonNode jsonNode = JsonStyleOutput.format(parsedFirstFile, parsedSecondFile);
+                JsonNode jsonNode = BuildResult.formatJson(parsedFirstFile, parsedSecondFile);
                 return jsonNode.toPrettyString();
             }
             default -> {

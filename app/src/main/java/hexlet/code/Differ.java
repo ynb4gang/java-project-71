@@ -1,6 +1,5 @@
 package hexlet.code;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,23 +23,8 @@ public class Differ {
         Map<String, Object> parsedSecondFile = UniversalParser.parseData(fileInputStream2, getFileExtension(filePath2));
 
 
-        return DifferenceFormatter.format(format, parsedFirstFile, parsedSecondFile);
+        return DifferenceFormatter.format(parsedFirstFile, parsedSecondFile, format);
     }
-
-    public static String generate(String filePath1, String filePath2) throws IOException {
-        File file1 = new File(filePath1);
-        File file2 = new File(filePath2);
-
-        Map<String, Object> parsedFirstFile = UniversalParser
-                .parseData(new FileInputStream(file1), getFileExtension(filePath1));
-        Map<String, Object> parsedSecondFile = UniversalParser
-                .parseData(new FileInputStream(file2), getFileExtension(filePath2));
-        assert parsedFirstFile != null;
-        assert parsedSecondFile != null;
-
-        return StylishStyleOutput.comparator(parsedFirstFile, parsedSecondFile);
-    }
-
 
     private static String getFileExtension(String filePath) {
         int lastDotIndex = filePath.lastIndexOf('.');
