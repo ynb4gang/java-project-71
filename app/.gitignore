@@ -40,6 +40,9 @@ bin/
 
 ### Mac OS ###
 .DS_Store
-/.idea/
-/.gradle
-/build
+.settings
+bin
+.project*
+.classpath
+.idea/
+.factorypath
