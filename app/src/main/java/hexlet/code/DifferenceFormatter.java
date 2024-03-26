@@ -10,7 +10,6 @@ public class DifferenceFormatter {
         List<Map<String, Object>> differences = BuildResult.generateTree(parsedFirstFile, parsedSecondFile);
         switch (format) {
             case "stylish" -> {
-                System.out.println(differences);
                 StringBuilder result = new StringBuilder(StylishStyleOutput
                         .formatStylish(differences));
                 if (!result.isEmpty() && result.charAt(result.length() - 1) == '\n') {
