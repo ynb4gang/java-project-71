@@ -1,39 +1,7 @@
-.SHELLFLAGS := -c
-.SHELLFLAGS += -e
-
-run-dist:
-	./build/install/app/bin/app
-
-setup:
-	./gradlew wrapper --gradle-version 8.5
-
-clean:
-	./gradlew clean
-
 build:
 	make -C app build
 
 report:
 	make -C app report
-
-
-install:
-	./gradlew clean install
-
-run:
-	./gradlew run
-
-test:
-	./gradlew test
-
-
-lint:
-	./gradlew checkstyleMain
-
-check-deps:
-	./gradlew dependencyUpdates -Drevision=release
-
-
-build-run: build run
 
 .PHONY: build
