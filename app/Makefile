@@ -1,7 +1,8 @@
-build:
-	make -C app build
+run:
+	gradle run
+
+test:
+	gradle test
 
 report:
-	make -C app report
-
-.PHONY: build
+	gradle jacocoTestReport
