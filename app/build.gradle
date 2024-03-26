@@ -1,22 +1,19 @@
 plugins {
-    application
-    checkstyle
-    jacoco
+    id 'application'
+    id 'checkstyle'
+    id 'jacoco'
 }
-
-group = "hexlet.code"
-version = "1.0-SNAPSHOT"
-
-repositories {
-    mavenCentral()
+application {
+    mainClass = 'hexlet.code.App'
 }
-
 tasks.compileJava {
     options.release = 20
 }
+group = 'hexlet.code'
+version = '1.0-SNAPSHOT'
 
-application {
-    mainClass = "hexlet.code.App"
+repositories {
+    mavenCentral()
 }
 
 dependencies {
@@ -29,10 +26,9 @@ dependencies {
     testImplementation ("org.assertj:assertj-core:3.21.0")
 }
 
-
 tasks.test {
     useJUnitPlatform()
-    finalizedBy(tasks.jacocoTestReport)
+    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
 }
 
 tasks.jacocoTestReport {
