@@ -1,47 +1,40 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static hexlet.code.PlainStyleOutput.buildResultPlain;
-
 public class BuildResult {
-    public static String formatStylish(Map<String, Object> parseFileOne, Map<String, Object> parseFileTwo) {
-        StringBuilder result = new StringBuilder();
-        Set<String> allKeys = new TreeSet<>(parseFileOne.keySet());
-        allKeys.addAll(parseFileTwo.keySet());
-        result.append("{\n");
-        for (String key : allKeys) {
-            StylishStyleOutput.compareKeys(key, parseFileOne, parseFileTwo, result);
+    public static List<Map<String, Object>> generateTree(Map<String, Object> map1, Map<String, Object> map2) {
+        List<Map<String, Object>> result = new ArrayList<>();
+        Set<String> keysSet = new TreeSet<>(map1.keySet());
+        keysSet.addAll(map2.keySet());
+        for (String key : keysSet) {
+            Map<String, Object> map = new LinkedHashMap<>();
+            if (map1.containsKey(key) && !map2.containsKey(key)) {
+                map.put("key", key);
+                map.put("oldValue", map1.get(key));
+                map.put("type", "removed");
+            } else if (!map1.containsKey(key) && map2.containsKey(key)) {
+                map.put("key", key);
+                map.put("newValue", map2.get(key));
+                map.put("type", "added");
+            } else if (!Objects.equals(map1.get(key), map2.get(key))) {
+                map.put("key", key);
+                map.put("oldValue", map1.get(key));
+                map.put("newValue", map2.get(key));
+                map.put("type", "updated");
+            } else {
+                map.put("key", key);
+                map.put("oldValue", map1.get(key));
+                map.put("type", "unchanged");
+            }
+            result.add(map);
         }
-        result.append("}");
-        return result.toString();
-    }
-    public static JsonNode formatJson(Map<String, Object> parseFileOne, Map<String, Object> parseFileTwo) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        ObjectNode jsonNode = objectMapper.createObjectNode();
-
-        Set<String> allKeys = new TreeSet<>(parseFileOne.keySet());
-        allKeys.addAll(parseFileTwo.keySet());
-
-        for (String key : allKeys) {
-            JsonStyleOutput.buildJsonResult(key, parseFileOne, parseFileTwo, jsonNode);
-        }
-        return jsonNode;
-    }
-    public static String formatPlain(Map<String, Object> parseFileOne, Map<String, Object> parseFileTwo) {
-        StringBuilder result = new StringBuilder();
-
-        Set<String> allKeys = new TreeSet<>(parseFileOne.keySet());
-        allKeys.addAll(parseFileTwo.keySet());
-        for (String key : allKeys) {
-            buildResultPlain(key, parseFileOne, parseFileTwo, result);
-        }
-        result.deleteCharAt(result.length() - 1);
-        return result.toString();
+        return result;
     }
 }

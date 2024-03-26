@@ -1,39 +1,48 @@
 package hexlet.code;
 
+import java.util.List;
 import java.util.Map;
 
 public class StylishStyleOutput {
-
-    protected static void compareKeys(String key, Map<String, Object> parseFileOne,
-                                      Map<String, Object> parseFileTwo, StringBuilder result) {
-        if (parseFileOne.containsKey(key) && parseFileTwo.containsKey(key)) {
-            Object firstMapValue = parseFileOne.get(key);
-            Object secondMapValue = parseFileTwo.get(key);
-            if (firstMapValue == null && secondMapValue == null) {
-                result.append("    ").append(key).append(": ").append("null").append("\n");
-            } else if (firstMapValue == null) {
-                result.append("  - ").append(key).append(": ").append("null").append("\n");
-                result.append("  + ").append(key).append(": ").append(secondMapValue).append("\n");
-            } else if (secondMapValue == null) {
-                result.append("  - ").append(key).append(": ").append(firstMapValue).append("\n");
-                result.append("  + ").append(key).append(": ").append("null").append("\n");
-            } else if (firstMapValue.equals(secondMapValue)) {
-                result.append("    ").append(key).append(": ").append(firstMapValue).append("\n");
-            } else {
-                result.append("  - ").append(key).append(": ").append(firstMapValue).append("\n");
-                result.append("  + ").append(key).append(": ").append(secondMapValue).append("\n");
+    public static String formatStylish(List<Map<String, Object>> differences) {
+        StringBuilder result = new StringBuilder("{\n");
+        for (Map<String, Object> diff : differences) {
+            switch (diff.get("type").toString()) {
+                case "removed":
+                    result.append("  - ")
+                            .append(diff.get("key"))
+                            .append(": ")
+                            .append(diff.get("oldValue"))
+                            .append("\n");
+                    break;
+                case "added":
+                    result.append("  + ")
+                            .append(diff.get("key"))
+                            .append(": ")
+                            .append(diff.get("newValue"))
+                            .append("\n");
+                    break;
+                case "unchanged":
+                    result.append("    ")
+                            .append(diff.get("key"))
+                            .append(": ")
+                            .append(diff.get("oldValue"))
+                            .append("\n");
+                    break;
+                default:
+                    result.append("  - ")
+                            .append(diff.get("key"))
+                            .append(": ")
+                            .append(diff.get("oldValue"))
+                            .append("\n");
+                    result.append("  + ")
+                            .append(diff.get("key"))
+                            .append(": ")
+                            .append(diff.get("newValue"))
+                            .append("\n");
+                    break;
             }
-        } else {
-            handleMissingKey(key, parseFileOne, parseFileTwo, result);
         }
-    }
-    private static void handleMissingKey(String key, Map<String, Object> parseFileOne,
-                                         Map<String, Object> parseFileTwo, StringBuilder result) {
-        if (parseFileOne.containsKey(key)) {
-            result.append("  - ").append(key).append(": ").append(parseFileOne.get(key)).append("\n");
-        }
-        if (parseFileTwo.containsKey(key)) {
-            result.append("  + ").append(key).append(": ").append(parseFileTwo.get(key)).append("\n");
-        }
+        return result.append("}").toString();
     }
 }

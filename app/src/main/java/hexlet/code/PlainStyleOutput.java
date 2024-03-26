@@ -1,68 +1,52 @@
 package hexlet.code;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+import java.util.List;
 
 public class PlainStyleOutput {
-    protected static void buildResultPlain(String key, Map<String, Object> parseFileOne,
-                                           Map<String, Object> parseFileTwo, StringBuilder result) {
-        Object valueOne = parseFileOne.get(key);
-        Object valueTwo = parseFileTwo.get(key);
-
-        if (!parseFileOne.containsKey(key) && parseFileTwo.containsKey(key)) {
-            addPropertyAdded(key, valueTwo, result);
-        } else if (parseFileOne.containsKey(key) && !parseFileTwo.containsKey(key)) {
-            addPropertyRemoved(key, result);
-        } else if (parseFileOne.containsKey(key)
-                && parseFileTwo.containsKey(key) && !Objects.equals(valueOne, valueTwo)) {
-            addPropertyUpdated(key, valueOne, valueTwo, result);
-        }
-    }
-    private static void addPropertyAdded(String key, Object value, StringBuilder result) {
-        if (value instanceof Map || value instanceof List || (value != null && value.getClass().isArray())) {
-            result.append("Property '").append(key).append("' was added with value: [complex value]\n");
-        } else {
-            if (value instanceof String) {
-                result.append("Property '").append(key).append("' was added with value: '").append(value).append("'\n");
-            } else {
-                result.append("Property '").append(key)
-                        .append("' was added with value: ").append(value).append("\n");
+    public static String formatPlain(List<Map<String, Object>> differences) {
+        StringBuilder result = new StringBuilder();
+        for (Map<String, Object> diff : differences) {
+            switch (diff.get("type").toString()) {
+                case "removed":
+                    result.append("Property '")
+                            .append(diff.get("key"))
+                            .append("' was removed")
+                            .append("\n");
+                    break;
+                case "added":
+                    result.append("Property '")
+                            .append(diff.get("key"))
+                            .append("' was added with value: ")
+                            .append(complexValue(diff.get("newValue")))
+                            .append("\n");
+                    break;
+                case "updated":
+                    result.append("Property '")
+                            .append(diff.get("key"))
+                            .append("' was updated. From ")
+                            .append(complexValue(diff.get("oldValue")))
+                            .append(" to ")
+                            .append(complexValue(diff.get("newValue")))
+                            .append("\n");
+                    break;
+                default:
+                    result.append("");
+                    break;
             }
         }
-    }
-    private static void addPropertyRemoved(String key, StringBuilder result) {
-        result.append("Property '").append(key).append("' was removed\n");
+        return result.toString().trim();
     }
 
-    private static void addPropertyUpdated(String key, Object valueOne, Object valueTwo, StringBuilder result) {
-        if ((valueOne instanceof Map || valueOne instanceof List || (valueOne != null && valueOne.getClass().isArray()))
-                && (valueTwo instanceof Map || valueTwo instanceof List || valueTwo.getClass().isArray())) {
-            result.append("Property '").append(key).append("' was updated. From [complex value] to [complex value]\n");
-        } else if (valueOne instanceof Map || valueOne instanceof List
-                || (valueOne != null && valueOne.getClass().isArray())) {
-            result.append("Property '").append(key).append("' was updated. From ")
-                    .append("[complex value]").append(" to ")
-                    .append(valueTwo).append("\n");
-        } else if (valueTwo instanceof Map || valueTwo instanceof List
-                || (valueTwo != null && valueTwo.getClass().isArray())) {
-            result.append("Property '").append(key).append("' was updated. From ")
-                    .append(valueOne).append(" to ")
-                    .append("[complex value]").append("\n");
+    public static String complexValue(Object value) {
+        if (value instanceof String) {
+            return "'" + value + "'";
+        } else if (value instanceof Map || value instanceof List) {
+            return "[complex value]";
+        } else if (value == null) {
+            return "null";
         } else {
-            if (valueOne instanceof String && valueTwo instanceof String) {
-                result.append("Property '").append(key).append("' was updated. From '")
-                        .append(valueOne).append("' to '").append(valueTwo).append("'\n");
-            } else if (valueOne instanceof String && !(valueTwo instanceof  String)) {
-                result.append("Property '").append(key).append("' was updated. From '")
-                        .append(valueOne).append("' to ").append(valueTwo).append("\n");
-            } else if (!(valueOne instanceof String) && valueTwo instanceof  String) {
-                result.append("Property '").append(key).append("' was updated. From ")
-                        .append(valueOne).append(" to '").append(valueTwo).append("'\n");
-            } else {
-                result.append("Property '").append(key).append("' was updated. From ")
-                        .append(valueOne).append(" to ").append(valueTwo).append("\n");
-            }
+            return value.toString();
         }
     }
 }

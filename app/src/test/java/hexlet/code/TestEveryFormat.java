@@ -96,6 +96,8 @@ class FileUtils {
         expectedOutput = expectedOutput.replaceAll("\\r\\n", "\n");
         outputJsonStylish = outputJsonStylish.replaceAll("\\r\\n", "\n");
 
+        System.out.println(outputJsonStylish);
+
         assertEquals(outputJsonStylish, expectedOutput);
     }
     @Test
